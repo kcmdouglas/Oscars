@@ -67,4 +67,24 @@ public class Movie {
     public Double getmVoteAverage() {
         return mVoteAverage;
     }
+
+    public String getAllGenres() {
+        String genre = "";
+
+        for(int i = 0; i< mGenres.size(); i++) {
+           genre += mGenres.get(i).getmName() + " ";
+        }
+
+        return genre;
+    }
+
+    public String getFirstGenre() {
+        String genreName = "No genres listed for this film";
+        for (int i=0; i<mGenres.size(); i++) {
+            if (mGenres.get(i).getmName() != null) {
+                genreName = mGenres.get(0).getmName();
+            }
+        }
+        return genreName;
+    }
 }

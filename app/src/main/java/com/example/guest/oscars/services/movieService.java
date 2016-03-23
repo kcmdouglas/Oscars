@@ -111,7 +111,10 @@ public class MovieService {
                     JSONArray genresJSON = movieJSON.getJSONArray("genre_ids");
                     ArrayList<Genre> genresList = new ArrayList<>();
                     for (int j=0; j<genresJSON.length(); j++) {
-                        genresList.add(Genre.getGenreById(genresJSON.getInt(j)));
+                        Genre genre = Genre.getGenreById(genresJSON.getInt(j));
+                        if (genre != null) {
+                            genresList.add(genre);
+                        }
                     }
                     Integer id = movieJSON.getInt("id");
                     String title = movieJSON.getString("original_title");

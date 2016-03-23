@@ -3,18 +3,29 @@ package com.example.guest.oscars.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.example.guest.oscars.R;
+import com.example.guest.oscars.adapters.MovieListAdapter;
+import com.example.guest.oscars.models.Movie;
 import com.example.guest.oscars.services.MovieService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ResultsActivity extends AppCompatActivity {
-    //public  ArrayList
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private MovieListAdapter mAdapter;
+
+    public ArrayList<Movie> mMovies = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +33,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         Intent intent = getIntent();
         getMovies(intent.getStringExtra("url"));
+        ButterKnife.bind(this);
     }
 
     private void getMovies(String APIUrl) {
@@ -35,7 +47,19 @@ public class ResultsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                MovieService.processMovies(response);
+                mMovies = MovieService.processMovies(response);
+
+
+                ResultsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter = new MovieListAdapter(getApplicationContext(), mMovies);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ResultsActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
+                    }
+                });
             }
         });
     }

@@ -41,14 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
         if (v == mNewReleasesButton) {
-
+            intent.putExtra("url", getString(R.string.now_playing));
         } else if (v == mUpcomingButton) {
-            Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("url", getString(R.string.upcoming_movies));
-            startActivity(intent);
         }
-
+        startActivity(intent);
     }
 
     private void getGenres() {
