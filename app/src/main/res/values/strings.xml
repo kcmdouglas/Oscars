@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Oscars</string>
+    <string name="api_key">d2ceb75b32a04800a9e3cf28ea99cc72</string>
+    <string name="genre_list">http://api.themoviedb.org/3/genre/movie/list</string>
+    <string name="upcoming_movies">http://api.themoviedb.org/3/movie/upcoming</string>
+</resources>
