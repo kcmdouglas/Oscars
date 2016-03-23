@@ -14,6 +14,7 @@ import java.util.Date;
 public class Movie {
     String mImage;
     String mOverview;
+    String mReleaseDateString;
     Date mReleaseDate;
     ArrayList<Genre> mGenres;
     Integer mId;
@@ -25,15 +26,20 @@ public class Movie {
 
     }
 
-    public Movie(String mImage, String mOverview, Date mReleaseDate, ArrayList<Genre> mGenres, Integer mId, String mTitle, Integer mVoteCount, Double mVoteAverage) {
+    public Movie(String mImage, String mOverview, String mReleaseDateString, Date mReleaseDate, ArrayList<Genre> mGenres, Integer mId, String mTitle, Integer mVoteCount, Double mVoteAverage) {
         this.mImage = mImage;
         this.mOverview = mOverview;
+        this.mReleaseDateString = mReleaseDateString;
         this.mReleaseDate = mReleaseDate;
         this.mGenres = mGenres;
         this.mId = mId;
         this.mTitle = mTitle;
         this.mVoteCount = mVoteCount;
         this.mVoteAverage = mVoteAverage;
+    }
+
+    public String getmReleaseDateString() {
+        return mReleaseDateString;
     }
 
     public String getmImage() {

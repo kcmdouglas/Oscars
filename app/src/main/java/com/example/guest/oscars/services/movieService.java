@@ -106,6 +106,7 @@ public class MovieService {
                     JSONObject movieJSON = resultsJSON.getJSONObject(i);
                     String poster = "https://image.tmdb.org/t/p/w396" + movieJSON.getString("poster_path");
                     String overview = movieJSON.getString("overview");
+                    String releaseDateString = movieJSON.getString("release_date");
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     Date releaseDate = format.parse(movieJSON.getString("release_date"));
                     JSONArray genresJSON = movieJSON.getJSONArray("genre_ids");
@@ -121,7 +122,7 @@ public class MovieService {
                     Integer voteCount = movieJSON.getInt("vote_count");
                     Double voteAverage = movieJSON.getDouble("vote_average");
 
-                    Movie movie = new Movie(poster, overview, releaseDate, genresList, id, title, voteCount, voteAverage);
+                    Movie movie = new Movie(poster, overview, releaseDateString, releaseDate, genresList, id, title, voteCount, voteAverage);
                     movieList.add(movie);
 
                     Log.d("poster: ", poster);

@@ -92,7 +92,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                 }
             });
 
-            mReleaseTextView.setText(movie.getmReleaseDate().toString());
+            mReleaseTextView.setText(movie.getmReleaseDateString().toString());
             mRatingTextView.setText(movie.getmVoteAverage().toString() + "/10");
 
         }
