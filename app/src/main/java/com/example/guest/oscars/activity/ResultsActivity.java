@@ -35,8 +35,7 @@ public class ResultsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
-
+                MovieService.processMovies(response);
             }
         });
     }

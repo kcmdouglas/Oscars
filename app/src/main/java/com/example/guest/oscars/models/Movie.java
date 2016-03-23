@@ -3,6 +3,7 @@ package com.example.guest.oscars.models;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Guest on 3/23/16.
@@ -13,14 +14,18 @@ import java.util.ArrayList;
 public class Movie {
     String mImage;
     String mOverview;
-    String mReleaseDate;
+    Date mReleaseDate;
     ArrayList<Genre> mGenres;
     Integer mId;
     String mTitle;
     Integer mVoteCount;
     Double mVoteAverage;
 
-    public Movie(String mImage, String mOverview, String mReleaseDate, ArrayList<Genre> mGenres, Integer mId, String mTitle, Integer mVoteCount, Double mVoteAverage) {
+    public Movie () {
+
+    }
+
+    public Movie(String mImage, String mOverview, Date mReleaseDate, ArrayList<Genre> mGenres, Integer mId, String mTitle, Integer mVoteCount, Double mVoteAverage) {
         this.mImage = mImage;
         this.mOverview = mOverview;
         this.mReleaseDate = mReleaseDate;
@@ -39,7 +44,7 @@ public class Movie {
         return mOverview;
     }
 
-    public String getmReleaseDate() {
+    public Date getmReleaseDate() {
         return mReleaseDate;
     }
 

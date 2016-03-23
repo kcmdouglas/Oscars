@@ -1,16 +1,22 @@
 package com.example.guest.oscars.services;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.guest.oscars.R;
 import com.example.guest.oscars.models.Genre;
+import com.example.guest.oscars.models.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -86,6 +92,53 @@ public class MovieService {
         }
 
 //        return genres;
+    }
+
+    public static ArrayList<Movie> processMovies (Response response) {
+        ArrayList<Movie> movieList = new ArrayList<>();
+
+        try {
+            String jsonData = response.body().string();
+            if (response.isSuccessful()) {
+                JSONObject moviesJSON = new JSONObject(jsonData);
+                JSONArray resultsJSON = moviesJSON.getJSONArray("results");
+                for (int i=0; i<resultsJSON.length(); i++) {
+                    JSONObject movieJSON = resultsJSON.getJSONObject(i);
+                    String poster = "https://image.tmdb.org/t/p/w396" + movieJSON.getString("poster_path");
+                    String overview = movieJSON.getString("overview");
+                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    Date releaseDate = format.parse(movieJSON.getString("release_date"));
+                    JSONArray genresJSON = movieJSON.getJSONArray("genre_ids");
+                    ArrayList<Genre> genresList = new ArrayList<>();
+                    for (int j=0; j<genresJSON.length(); j++) {
+                        genresList.add(Genre.getGenreById(genresJSON.getInt(j)));
+                    }
+                    Integer id = movieJSON.getInt("id");
+                    String title = movieJSON.getString("original_title");
+                    Integer voteCount = movieJSON.getInt("vote_count");
+                    Double voteAverage = movieJSON.getDouble("vote_average");
+
+                    Movie movie = new Movie(poster, overview, releaseDate, genresList, id, title, voteCount, voteAverage);
+                    movieList.add(movie);
+
+                    Log.d("poster: ", poster);
+                    Log.d("overview: ", overview);
+                    Log.d("release: ", releaseDate.toString());
+                    Log.d("id: ", id.toString());
+                    Log.d("title: ", title);
+                    Log.d("voteCounte: ", voteCount.toString());
+                    Log.d("voteAverage: ", voteAverage.toString());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return movieList;
     }
 
 
