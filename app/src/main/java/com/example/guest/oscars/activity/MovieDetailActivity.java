@@ -59,21 +59,31 @@ public class MovieDetailActivity extends AppCompatActivity  {
         switch (item.getItemId()) {
 
             case R.id.share:
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.putExtra("sms_body", "Test SMS");
-//                intent.setType("vnd.android-dir/mms-sms");
+
+
+                Movie movie = mMovie.get(mViewPager.getCurrentItem());
+                String movieUrl = "https://www.themoviedb.org/movie/" + movie.getmId();
+                String movieTitle = movie.getmTitle();
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Let's see this movie: \n" + movieTitle + "\n" + movieUrl);
+                sendIntent.setType("text/plain");
                 PackageManager packageManager = getPackageManager();
-                List activities = packageManager.queryIntentActivities(intent,
-                        PackageManager.MATCH_DEFAULT_ONLY);
+                List activities = packageManager.queryIntentActivities(sendIntent,
+                        PackageManager.MATCH_ALL);
+
                 boolean isIntentSafe = activities.size() > 0;
                 if (isIntentSafe) {
-                    startActivity(intent);
+                    startActivity(Intent.createChooser(sendIntent, "Select An App:"));
                     Log.d("Intent response: ", "SEND");
-                } else {
-                    Log.d("Intent response: ", "FAIL");
                 }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+
+
