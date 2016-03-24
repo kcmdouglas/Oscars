@@ -1,10 +1,13 @@
 package com.example.guest.oscars.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Parcel;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.example.guest.oscars.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,10 +58,21 @@ public class MovieDetailActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-//            case R.id.signin:
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//                return true;
+            case R.id.share:
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.putExtra("sms_body", "Test SMS");
+//                intent.setType("vnd.android-dir/mms-sms");
+                PackageManager packageManager = getPackageManager();
+                List activities = packageManager.queryIntentActivities(intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+                boolean isIntentSafe = activities.size() > 0;
+                if (isIntentSafe) {
+                    startActivity(intent);
+                    Log.d("Intent response: ", "SEND");
+                } else {
+                    Log.d("Intent response: ", "FAIL");
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
