@@ -11,9 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.guest.oscars.R;
+import com.example.guest.oscars.activity.MovieDetailActivity;
 import com.example.guest.oscars.activity.ResultsActivity;
 import com.example.guest.oscars.models.Movie;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -66,10 +69,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
                 @Override
                 public void onClick(View view) {
                     int itemPosition = getLayoutPosition();
-                    //Intent intent = new Intent(mContext, MovieDetailActivity.class);
-//                    intent.putExtra("position", itemPosition + "");
-//                    intent.putExtra("movies", Parcels.wrap(mMovies));
-//                    mContext.startActivity(intent);
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra("position", itemPosition + "");
+                    intent.putExtra("movies", Parcels.wrap(mMovies));
+                    mContext.startActivity(intent);
 
                 }
             });
@@ -88,7 +91,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             mGenreTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, pMovie.getAllGenres(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, android.text.TextUtils.join(", ", pMovie.getAllGenres()), Toast.LENGTH_SHORT).show();
                 }
             });
 

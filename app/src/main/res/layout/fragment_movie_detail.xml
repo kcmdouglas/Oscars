@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:id="@+id/restaurantImageView"
+            android:id="@+id/movieImageView"
             android:scaleType="centerCrop" />
 
         <RelativeLayout
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Movie Title"
-                android:id="@+id/restaurantNameTextView"
+                android:id="@+id/movieNameTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textSize="20sp"
@@ -42,30 +42,30 @@
                 android:layout_height="wrap_content"
                 android:text="Movie Rating"
                 android:id="@+id/ratingTextView"
-                android:layout_alignTop="@+id/restaurantNameTextView"
+                android:layout_alignTop="@+id/movieNameTextView"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Release date"
-                android:id="@+id/phoneTextView"
+                android:id="@+id/releaseTextView"
                 android:drawablePadding="4dp"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_below="@id/ratingTextView"
-                android:layout_alignLeft="@id/ratingTextView"
-                android:gravity="center"/>
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Genres"
-                android:id="@+id/cuisineTextView"
-                android:layout_below="@+id/restaurantNameTextView"
+                android:id="@+id/genreTextView"
+                android:layout_below="@+id/movieNameTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textStyle="italic" />
@@ -73,7 +73,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/overviewLayout">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -82,45 +83,45 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_above="@+id/saveRestaurantButton"
                 android:paddingLeft="30dp"
                 android:paddingTop="20dp"
                 android:paddingRight="30dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Overview"
-                    android:id="@+id/websiteTextView"
-                    android:drawablePadding="4dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center" />
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="35dp"
+                    android:id="@+id/scrollView"
+                    android:layout_gravity="center_horizontal" >
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Overview"
+                        android:id="@+id/overviewTextView"
+                        android:drawablePadding="4dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center" />
+                </ScrollView>
 
-
-                TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="123 SW Best Ever Ave. Portland, Oregon, 97222"
-                    android:drawablePadding="4dp"
-                    android:id="@+id/addressTextView"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center_vertical"/>
 
             </LinearLayout>
 
-            <Button
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save Restaurant"
-                android:id="@+id/saveRestaurantButton"
+                android:src="@drawable/ic_share_white_24dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/colorAccent"
-                android:textSize="15sp" />
+                android:id="@+id/shareIcon"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="5dp"/>
+
         </RelativeLayout>
+
+
     </LinearLayout>
+
 </FrameLayout>

@@ -74,14 +74,15 @@ public class Movie {
         return mVoteAverage;
     }
 
-    public String getAllGenres() {
-        String genre = "";
+    public String[] getAllGenres() {
+        ArrayList<String> genre = new ArrayList<>();
 
         for(int i = 0; i< mGenres.size(); i++) {
-           genre += mGenres.get(i).getmName() + " ";
+           genre.add(mGenres.get(i).getmName());
         }
 
-        return genre;
+        String[] genreArray = new String[genre.size()];
+        return genre.toArray(genreArray);
     }
 
     public String getFirstGenre() {

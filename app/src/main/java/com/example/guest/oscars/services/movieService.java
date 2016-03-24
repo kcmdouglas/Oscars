@@ -65,7 +65,7 @@ public class MovieService {
         Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
-            call.enqueue(callback);
+        call.enqueue(callback);
     }
 
     public static void processGenres (Response response) {
