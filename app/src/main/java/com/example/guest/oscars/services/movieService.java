@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.guest.oscars.R;
+import com.example.guest.oscars.models.Cast;
 import com.example.guest.oscars.models.Genre;
 import com.example.guest.oscars.models.Movie;
 
@@ -55,6 +56,21 @@ public class MovieService {
 
     public void findGenres(Callback callback) {
         final String URL = mContext.getString(R.string.genre_list);
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(URL).newBuilder();
+        urlBuilder.addQueryParameter("api_key", KEY);
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+    }
+
+    public void findCredits(Callback callback, Movie movie) {
+        final String URL = String.format(mContext.getString(R.string.movie_credits), movie.getmId());
 
         OkHttpClient client = new OkHttpClient.Builder().build();
 
@@ -145,5 +161,35 @@ public class MovieService {
         return movieList;
     }
 
+    public static void processCasts (Response response, Movie movie) {
+        ArrayList<Cast> castList = new ArrayList<>();
 
+        try {
+            String jsonData = response.body().string();
+            if (response.isSuccessful()) {
+                JSONObject creditsJSON = new JSONObject(jsonData);
+                JSONArray castsJSON = creditsJSON.getJSONArray("cast");
+                for (int i=0; i<castsJSON.length(); i++) {
+                    JSONObject castJSON = castsJSON.getJSONObject(i);
+                    String profile = "https://image.tmdb.org/t/p/original" + castJSON.getString("profile_path");
+                    String name = castJSON.getString("name");
+                    Integer castId = castJSON.getInt("id");
+
+
+                    Cast cast = new Cast(castId, name, profile);
+                    castList.add(cast);
+
+                    Log.d("name: ", name);
+                    Log.d("profile: ", profile);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        movie.setmCastsList(castList);
+    }
 }

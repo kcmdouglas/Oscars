@@ -21,6 +21,7 @@ public class Movie {
     String mTitle;
     Integer mVoteCount;
     Double mVoteAverage;
+    ArrayList<Cast> mCastsList;
 
     public Movie () {
 
@@ -93,5 +94,9 @@ public class Movie {
             }
         }
         return genreName;
+    }
+
+    public void setmCastsList(ArrayList<Cast> mCastsList) {
+        this.mCastsList = mCastsList;
     }
 }

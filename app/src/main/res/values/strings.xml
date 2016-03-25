@@ -4,6 +4,7 @@
     <string name="genre_list">http://api.themoviedb.org/3/genre/movie/list</string>
     <string name="upcoming_movies">http://api.themoviedb.org/3/movie/upcoming</string>
     <string name="now_playing">http://api.themoviedb.org/3/movie/now_playing</string>
+    <string name="movie_credits">http://api.themoviedb.org/3/movie/%d/credits</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

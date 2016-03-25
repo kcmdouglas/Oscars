@@ -3,6 +3,8 @@ package com.example.guest.oscars.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,13 +15,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guest.oscars.R;
+import com.example.guest.oscars.adapters.MovieListAdapter;
 import com.example.guest.oscars.models.Movie;
+import com.example.guest.oscars.services.MovieService;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MovieDetailFragment extends Fragment{
     @Bind(R.id.movieImageView)
